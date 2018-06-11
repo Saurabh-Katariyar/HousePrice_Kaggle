@@ -2,7 +2,7 @@
 
 class dataprocess():
     import pandas as pd
-#    def __init__(self):
+
         
         
       
