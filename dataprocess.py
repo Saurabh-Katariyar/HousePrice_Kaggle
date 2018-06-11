@@ -5,22 +5,24 @@ class dataprocess():
 #    def __init__(self):
         
         
+      
     def clean(data):
-        cat_var = data.dtypes.loc[data.dtypes == 'object'].index
-        con_var = data.dtypes.loc[data.dtypes != 'object'].index
-        
-        for col in con_var:
-            if data[col].isnull().sum() > 50:
-                data = data.drop(columns = col)
-            else:
-                data = data.fillna(data[col].median())
-        
-        
-        for col in cat_var:
-            if data[col].isnull().sum() > 50:
-                data = data.drop(columns = col)
-            else:
-                data = data.fillna("XXX")
+        for col in data.columns:
+            if data[col].dtype == 'object':
+                if data[col].isnull().sum() > 50:
+                    del data[col]
+            
+
+            elif data[col].dtype != 'object':
+                if data[col].isnull().sum() > 50:
+                    del data[col]
+            
+        for col in data.columns:
+            if data[col].isnull().sum() != 0:
+                if data[col].dtype == 'object':
+                    data = data.fillna("XXX") 
+                elif data[col].dtype != 'object':
+                    data = data.fillna(data[col].median())
                 
 
 
